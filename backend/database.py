@@ -1,8 +1,16 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from models import Task
 from bson import ObjectId
+#from pymongo import MongoClient
 
-client = AsyncIOMotorClient('mongodb://localhost')
+#indeed, the problem is that dnspython tries to open /etc/resolv.conf
+
+import dns.resolver
+dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
+dns.resolver.default_resolver.nameservers=['8.8.8.8']
+
+client = AsyncIOMotorClient("mongodb+srv://smich254:PCLb9zDVzHFfoIK3@fastapi-panaderia.vny9tsp.mongodb.net/?retryWrites=true&w=majority")
+#client = AsyncIOMotorClient('mongodb://localhost')
 database = client.taskdatabase
 collection = database.tasks
 
