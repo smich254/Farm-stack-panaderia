@@ -25,7 +25,26 @@
 
 5. Instala las dependencias necesarias, por ejemplo, `react-router-dom`:
 
-   `npm install react-router-dom`
+   ```
+   npm install react-router-dom
+
+   ```
+
+   ```
+   npm i react-router-dom
+   ```
+
+   ```
+   npm install -D tailwindcss postcss autoprefixer
+   ```
+
+   ```
+   npx tailwindcss init -p
+   ```
+
+   ```
+   npm i axios
+   ```
 
 6. Inicia la aplicación Vite:
 

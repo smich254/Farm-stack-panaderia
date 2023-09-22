@@ -1,27 +1,28 @@
 from motor.motor_asyncio import AsyncIOMotorClient
-from models import Task
+from models import Task, UpdateTask
 from bson import ObjectId
-#from pymongo import MongoClient
-
-#indeed, the problem is that dnspython tries to open /etc/resolv.conf
+from decouple import config
 
 import dns.resolver
 dns.resolver.default_resolver=dns.resolver.Resolver(configure=False)
 dns.resolver.default_resolver.nameservers=['8.8.8.8']
 
-client = AsyncIOMotorClient("mongodb+srv://smich254:PCLb9zDVzHFfoIK3@fastapi-panaderia.vny9tsp.mongodb.net/?retryWrites=true&w=majority")
-#client = AsyncIOMotorClient('mongodb://localhost')
+mongodb_url = [
+    config("MONGODB_SRV")
+]
+
+client = AsyncIOMotorClient(mongodb_url)
 database = client.taskdatabase
 collection = database.tasks
 
 
 async def get_one_task_id(id):
-    task = await collection.find_one({'_id': ObjectId(id)})
+    task = await collection.find_one({"_id": ObjectId(id)})
     return task
 
 
 async def get_one_task(title):
-    task = await collection.find_one({'title': title})
+    task = await collection.find_one({"title": title})
     return task
 
 
@@ -35,18 +36,17 @@ async def get_all_tasks():
 
 async def create_task(task):
     new_task = await collection.insert_one(task)
-    created_task = await collection.find_one({'_id': new_task.inserted_id})
+    created_task = await collection.find_one({"_id": new_task.inserted_id})
     return created_task
 
 
-async def update_task(id: str, data):
-    task = {k:v for k, v in data.dict().items() if v is not None}
-    print(task)
-    await collection.update_one({'_id': ObjectId(id)}, {'$set': task})
-    document = await collection.find_one({'_id': ObjectId(id)})
+async def update_task(id: str, data: UpdateTask):
+    task = {k: v for k, v in data.dict().items() if v is not None}
+    await collection.update_one({"_id": ObjectId(id)}, {"$set": task})
+    document = await collection.find_one({"_id": ObjectId(id)})
     return document
 
 
-async def delete_task(id: str):
-    await collection.delete_one({'_id': ObjectId(id)})
+async def delete_task(id):
+    await collection.delete_one({"_id": ObjectId(id)})
     return True

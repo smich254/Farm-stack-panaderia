@@ -1,5 +1,5 @@
-from pydantic import BaseModel, Field
 from typing import Optional
+from pydantic import BaseModel, Field
 from bson import ObjectId
 
 
@@ -11,29 +11,32 @@ class PyObjectId(ObjectId):
     @classmethod
     def validate(cls, v):
         if not ObjectId.is_valid(v):
-            raise ValueError('Invalid objectid')
+            raise ValueError('Invalid ObjectId')
         return str(v)
 
 
 class Task(BaseModel):
     id: Optional[PyObjectId] = Field(alias='_id')
     title: str
-    description: Optional[str] = None
-    complete: bool = False
+    description: str
+    completed: bool = False
 
     class Config:
         orm_mode = True
         allow_population_by_field_name = True
-        json_enconders = {ObjectId: str}
+        json_encoders = {
+            ObjectId: str
+        }
 
 
 class UpdateTask(BaseModel):
-    id: Optional[str] = None
     title: Optional[str] = None
     description: Optional[str] = None
-    complete: Optional[bool] = None
+    completed: Optional[bool] = None
 
     class Config:
         orm_mode = True
         allow_population_by_field_name = True
-        json_enconders = {ObjectId: str}
+        json_encoders = {
+            ObjectId: str
+        }
