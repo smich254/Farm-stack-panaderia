@@ -19,6 +19,8 @@ class Task(BaseModel):
     id: Optional[PyObjectId] = Field(alias='_id')
     title: str
     description: str
+    # quatity: int
+    # price: float
     completed: bool = False
 
     class Config:
