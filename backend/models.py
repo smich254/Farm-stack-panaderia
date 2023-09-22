@@ -15,13 +15,14 @@ class PyObjectId(ObjectId):
         return str(v)
 
 
-class Task(BaseModel):
+class Product(BaseModel):
     id: Optional[PyObjectId] = Field(alias='_id')
     title: str
     description: str
-    # quatity: int
-    # price: float
-    completed: bool = False
+    category: str
+    quatity: int
+    price: float
+    favorite: bool = False
 
     class Config:
         orm_mode = True
@@ -31,10 +32,13 @@ class Task(BaseModel):
         }
 
 
-class UpdateTask(BaseModel):
+class UpdateProduct(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None
-    completed: Optional[bool] = None
+    category: Optional[str] = None
+    quantity: Optional[int] = None
+    price: Optional[float] = None
+    favorite: Optional[bool] = None
 
     class Config:
         orm_mode = True

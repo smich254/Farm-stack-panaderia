@@ -1,23 +1,23 @@
 import { useNavigate } from "react-router-dom";
-import { updateTask } from "../api/tasks";
+import { updateProduct } from "../api/products";
 
-function TaskCard({ task }) {
+function ProductCard({ product }) {
   const navigate = useNavigate();
 
   return (
     <div
       className="bg-zinc-950 p-4 hover:cursor-pointer hover:bg-gray-950"
       onClick={() => {
-        navigate(`/tasks/${task._id}`);
+        navigate(`/products/${product._id}`);
       }}
     >
       <div className="flex justify-between">
-        <h1 className="font-bold text-2xl">{task.title}</h1>
+        <h1 className="font-bold text-2xl">{product.title}</h1>
         <button
           onClick={async (e) => {
             e.stopPropagation();
-            const res = await updateTask(task._id, {
-              completed: !task.completed,
+            const res = await updateProduct(product._id, {
+              favorite: !product.favorite,
             });
             if (res.status === 200) {
               window.location.reload();
@@ -29,7 +29,7 @@ function TaskCard({ task }) {
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
-            className={`w-6 h-6 ${task.completed ? "text-green-500" : ""}`}
+            className={`w-6 h-6 ${product.favorite ? "text-green-500" : ""}`}
             viewBox="0 0 24 24"
           >
             <path
@@ -41,9 +41,9 @@ function TaskCard({ task }) {
         </button>
       </div>
 
-      <p className="text-slate-400">{task.description}</p>
+      <p className="text-slate-400">{product.description}</p>
     </div>
   );
 }
 
-export default TaskCard;
+export default ProductCard;

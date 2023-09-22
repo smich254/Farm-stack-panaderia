@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import TaskForm from "./pages/TaskForm";
+import ProductForm from "./pages/ProductForm";
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -10,8 +10,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/tasks/:id" element={<TaskForm />} />
-          <Route path="/tasks/new" element={<TaskForm />} />
+          <Route path="/products/:id" element={<ProductForm />} />
+          <Route path="/products/new" element={<ProductForm />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 # from fastapi.staticfiles import StaticFiles
 # from fastapi.templating import Jinja2Templates
-from routes.task import task
+from routes.product import product
 from decouple import config
 
 app = FastAPI()
@@ -22,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(task)
+app.include_router(product)
 
 # app.mount('/assets', StaticFiles(directory="../client/dist/assets"), 'static')
 
