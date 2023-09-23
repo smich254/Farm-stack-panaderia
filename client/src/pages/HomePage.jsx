@@ -9,19 +9,21 @@ function HomePage() {
   useEffect(() => {
     fetchProducts()
       .then((res) => {
-        setSimpleProducts(res.data.filter((product) => product.favorite));
-        setFavoriteProducts(res.data.filter((product) => !product.favorite));
+        setSimpleProducts(res.data.filter((product) => !product.favorite));
+        setFavoriteProducts(res.data.filter((product) => product.favorite));
       })
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <>
-      <h3 className="text-xl font-bold text-gray-400 mb-7">Simple Products</h3>
+      <h3 className="text-xl font-bold text-gray-400 mb-7">
+        Productos simples
+      </h3>
       <ProductList products={simpleProducts} />
 
       <h3 className="text-xl font-bold text-gray-400 mb-7">
-        Favorite Products
+        Productos favoritos
       </h3>
       <ProductList products={favoriteProducts} />
     </>

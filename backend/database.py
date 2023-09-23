@@ -12,7 +12,7 @@ mongodb_url = [
 ]
 
 client = AsyncIOMotorClient(mongodb_url)
-database = client.productdatabase
+database = client.productdb
 collection = database.products
 
 

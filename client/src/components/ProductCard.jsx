@@ -40,8 +40,10 @@ function ProductCard({ product }) {
           </svg>
         </button>
       </div>
-
       <p className="text-slate-400">{product.description}</p>
+      <p className="text-slate-400">{product.category}</p>
+      <p className="text-slate-400">{product.quantity}</p>
+      <p className="text-slate-400">{product.price}</p>
     </div>
   );
 }

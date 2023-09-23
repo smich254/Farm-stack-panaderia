@@ -20,7 +20,7 @@ class Product(BaseModel):
     title: str
     description: str
     category: str
-    quatity: int
+    quantity: int
     price: float
     favorite: bool = False
 
